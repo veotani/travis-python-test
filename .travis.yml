@@ -14,5 +14,6 @@ before_install:
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key root@207.180.208.87 pwd
 
-after_success:
-  - python main.py
+deploy:
+  provider: script
+  script: bash deploy.sh
