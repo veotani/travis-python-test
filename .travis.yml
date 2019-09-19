@@ -1,6 +1,4 @@
 language: python
-python:
-  - "3.7"
 
 env:
   - SERVER_IP_ADDRESS=207.180.208.87
@@ -13,7 +11,3 @@ before_install:
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key root@207.180.208.87 pwd
-
-deploy:
-  provider: script
-  script: bash deploy.sh
