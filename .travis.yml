@@ -1,3 +1,7 @@
+language: python
+python:
+  - "3.7"
+
 env:
   - SERVER_IP_ADDRESS=207.180.208.87
 
