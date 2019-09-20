@@ -25,7 +25,7 @@ deploy:
   # Push image to dockerhub
   - provider: script
     skip_cleanup: true
-    script: bash docker_push
+    script: bash docker_push.sh
     on:
       branch: master
 
