@@ -21,7 +21,7 @@ before_deploy:
   - ssh-add ./deploy_key
   - ssh -i ./deploy_key root@207.180.208.87 pwd
 
- deploy:
+deploy:
   # Push image to dockerhub
   - provider: script
     skip_cleanup: true
