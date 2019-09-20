@@ -32,7 +32,7 @@ deploy:
   # Deploy on remote machine
   - provider: script
     skip_cleanup: true
-    script: ssh -i ./deploy_key root@207.180.208.87 docker run -p 7000-8000:8080 veotani/travis-python-test:0.0
+    script: ssh -i ./deploy_key root@207.180.208.87 docker run -d -p 7000-8000:8080 veotani/travis-python-test:0.0
     on:
       branch: master
 
