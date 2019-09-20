@@ -3,6 +3,9 @@ language: python
 env:
   - SERVER_IP_ADDRESS=207.180.208.87
 
+services:
+  - docker
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_88abb8ca27c9_key -iv $encrypted_88abb8ca27c9_iv
   -in deploy_key.enc -out ./deploy_key -d
@@ -11,4 +14,27 @@ before_install:
 - echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key root@207.180.208.87 pwd
-- ls --all
+
+deploy:
+  # Build new docker image
+  - provider: script
+    skip_cleanup: true
+    script: docker build -t veotani/travis-python-test:0.0
+    on:
+      branch: master
+
+  # Push image to dockerhub
+  - provider: script
+    skip_cleanup: true
+    script: bash docker_push
+    on:
+      branch: master
+
+  # Deploy on remote machine
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i ./deploy_key root@207.180.208.87 docker run -p 7000-8000:8080 veotani/travis-python-test:0.0
+    on:
+      branch: master
+
+  
